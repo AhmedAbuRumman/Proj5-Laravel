@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ class RecruiterLoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:recruiter');
+        // $this->middleware('guest:recruiter');
     }
     public function showLoginForm()
     {
@@ -24,7 +24,8 @@ class RecruiterLoginController extends Controller
         ]);
 
         if (Auth::guard('recruiter')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('recruiter.dashboard'));
+            return redirect()->route('recruiter.dashboard');
+            // return Auth::guard('recruiter')->user()->name;
         }
             return  redirect()->back()->withInput($request->only('email', 'remember'));
 

@@ -1,11 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Category;
-
 use Illuminate\Http\Request;
-
 use Resource;
 
 class CategoryController extends Controller
@@ -23,6 +20,13 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function index1()
+    {
+        $categories = Category::all();
+        return view('categories', [
+            'categories' => $categories,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -70,8 +74,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        // $post = Category::find($id)->catposts;
-        // return view('PostsCategories', compact('post'));
+        $post = Category::find($id)->catposts;
+        return view('PostsCategories', compact('post'));
     }
 
     /**
@@ -117,4 +121,6 @@ class CategoryController extends Controller
         Category::findOrFail($id)->delete();
         return redirect()->route('Categories.create');
     }
+
+    
 }

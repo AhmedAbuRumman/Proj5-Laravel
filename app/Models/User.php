@@ -8,12 +8,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public function skills()
+    {
+        return $this->belongsToMany('App\Models\Skill','skill_user');
+    }
     //
     public function profile(){
-        return $this->hasOne('App\Profile');
+        return $this->hasOne('App\Models\Profile');
     }
     public function jobpost(){
-        return $this->belongsToMany('App\JobPost', 'jobpost_user');
+        return $this->belongsToMany('App\Models\JobPost', 'jobpost_user');
     
         // ->withPivot('Job_id');
     }

@@ -17,7 +17,7 @@
 
 
                             <div class="form-group">
-                            <label for="cc-payment" class="control-label mb-1"> Select Category</label>
+                                <label for="cc-payment" class="control-label mb-1"> Select Category</label>
                                 <select name="category_id" class="form-control" data-msg="Please select Job Category." data-error-class="u-has-error" data-success-class="u-has-success">
                                     <option value="">Select Category</option>
 
@@ -30,7 +30,7 @@
                                 <select name="major_id" class="form-control" data-msg="Please select Job Category." data-error-class="u-has-error" data-success-class="u-has-success">
                                     <option value="">Select Major</option>
 
-                                   @foreach($majors as $major)
+                                    @foreach($majors as $major)
                                     <option value={{$major->id}}>{{$major->major_name}}</option>
                                     @endforeach
 
@@ -45,10 +45,10 @@
                     </div>
 
                     <div class="text-center">
-                                <button id="payment-button" type="submit" class="btn " name="submit">
-                                    <span id="payment-button-amount">Create</span>
-                                </button>
-                            </div>
+                        <button id="payment-button" type="submit" class="btn " name="submit">
+                            <span id="payment-button-amount">Create</span>
+                        </button>
+                    </div>
 
 
                     </form>
@@ -77,8 +77,8 @@
                                                 <td>{{$skill->skill_name}}</td>
                                                 <td><a href="/Skill/{{$skill->id}}/edit" class='btn btn-primary'>Edit</a></td>
                                                 <form method="post" action="{{route('Skill.destroy',$skill->id)}}">
-                                                  @csrf 
-                                                  @method('delete')
+                                                    @csrf
+                                                    @method('delete')
                                                     <!-- <input type="hidden" name="_method" value="DELETE"> -->
                                                     <td><button href="" class='btn btn-danger'>Delete</button></td>
                                                 </form>

@@ -1,6 +1,5 @@
 @extends('main')
 
-
 @section('section1')
 
 <section class="py-5 homepage-search-block position-relative">
@@ -62,47 +61,37 @@
                 </div>
                 <div class="container">
                     <div class="row text-center">
-
-
+                   
+                        @foreach($all_posts1 as $key => $value)
                         <div class="col-md-3">
-
+                            {{-- <a href="single/{{$all_posts2['id']}}"> --}}
                             <div class="sorting-div d-flex align-items-center justify-content-between">
-
+                                <p class="mb-2">{{$value["job_cat"]}}</p>
                             </div>
+                            <img class="img-fluid" src="{{asset('uploads/logo/'.$value['company_logo'])}}" width="248px" height="100px" />
                             <div class="inner-slider">
                                 <div class="inner-wrapper">
+                                    <h6 style="color:#20CCC6 ; font-weight: 900">{{$value["job_title"]}}</h6>
+                                    <h6>{{$value["company_name"]}}</h6>
+                                    {{-- <h6>{{$value["job_city"]}}</h6>
+                                    <h6 class="mb-2">Contact Us:</h6>
+                                    <p>{{$value["email"]}}</p>
+                                    <p>{{$value["phone"]}}</p> --}}
+                                    {{-- <a href="" ><button type="submit" class="btn btn-info m-0"><i class="mdi mdi-image"></i> Apply</button> </a> --}}
+                                    {{-- </a> --}}
+
+                                    <a href="http://127.0.0.1:8000/single/{{$value['id']}}"><button type="submit" class="btn btn-success mt-1"><i></i> View details</button> </a>
+
                                 </div>
                             </div>
                         </div>
-                   
+                        @endforeach
+
                     </div>
                 </div>
 
 
-                <div class="footer-pagination text-center">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
 
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
     </section>
 </div>
 </div>

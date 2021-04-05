@@ -8,6 +8,14 @@ use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\RecruiterRegisterController;
+use App\Http\Controllers\RecruiterLoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+
+
+
 
 
 /*
@@ -21,11 +29,9 @@ use App\Http\Controllers\SkillController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/home', function () {
+
+Route::get('/', function () {
     return view('home');
 });
 
@@ -84,10 +90,81 @@ Route::get('/Jobs', [RecruiterController::class,'getJobsList']);
 Route::get('/Jobs/{id}/delete', [RecruiterController::class,'delete']);
 
 
+Route::get('job_post', [JobPostController::class,'create11']);
+Route::post('search_post', [JobPostController::class,'search']);
+Route::post('view_post', [JobPostController::class,'create']);
+Route::get('view_post', [JobPostController::class,'index']);
+Route::get('edit_post/{id}', [JobPostController::class, 'edit']);
+Route::post('edit_post/view_post/{id}',[JobPostController::class,'update']);
+Route::get('view_post/{id}', [JobPostController::class,'destroy']);
+Route::get('jobs/{id}/delete', [JobPostController::class,'destroy']);
+Route::get('single/{id}', [JobPostController::class,'show1']);
+Route::get('/PostsCategories/{id}', [CategoryController::class,'show']);  //1
+Route::get('recruiter_profile/{id}', [JobPostController::class,'show2']);
+
+
+Route::get('/listcat', [CategoryController::class,'index']);
+
+// Route::get('/index', function () {
+//     return view('user.index');
+// });
+// Route::get('/user_profile', function () {
+//     return view('user.user_profile');
+// });
+// Route::get('/user_public', function () {
+//     return view('user.user_public');
+// });
+// Route::get('/edit', function () {
+//     return view('user.edit');
+// });
+// Route::get('/applied_job', function () {
+//     return view('user.applied_job');
+// });
+
+Route::get('/user_profile/{id}', [ProfileController::class,'show2']);
+Route::get('/edit/{user}', [ProfileController::class,'edit']);
+Route::post('/update/{id}', [ProfileController::class,'update']);
+Route::get('/apply/{id}', [ProfileController::class,'apply']);
+Route::post('/jobuser/{id}', [ProfileController::class,'store']);
+Route::get('applied_job/{id}', [ProfileController::class,'show3']);
+
+Route::get('/recruiters', [UserController::class,'index']);
+Route::get('/recruiters/{id}/delete', [UserController::class,'delete']);
 
 
 
 
 
 
+Auth::routes();
 
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/admin/login',[AdminLoginController::class, 'showLoginForm']);
+Route::post('/admin/login',[AdminLoginController::class, 'login']);
+
+Route::prefix('recruiter')->group(function(){
+    Route::get('/login', [RecruiterLoginController::class,'showLoginForm'])->name('recruiter.login');
+    Route::post('/login', [RecruiterLoginController::class,'login'])->name('recruiter.login.submit');
+    Route::get('/', [RecruiterController::class,'index'])->name('recruiter.dashboard');
+    Route::get('/register', [RecruiterRegisterController::class,'index'])->name('recruiter.register');
+    Route::post('/register', [RecruiterRegisterController::class,'store'])->name('recruiter.register.submit');
+});
+
+
+
+Route::get('/welcome_register', function () {
+    return view('welcome_register');
+});
+
+Route::get('/welcome_login', function () {
+    return view('welcome_login');
+});
+
+
+Route::get('showMajor/{id}' , [MajorController::class, 'showMajor']);
+
+Route::get('showSkill/{id}' , [SkillController::class, 'showSkill']);
+
+Route::get('allcategories' , [CategoryController::class, 'index1']);
+
+Route::get('/', [JobPostController::class, 'indexhome']);

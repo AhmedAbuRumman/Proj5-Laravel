@@ -17,12 +17,12 @@ class SkillController extends Controller
     public function index()
     {
         //return view('Skill');
-        
+
         $majors = Major::all();
         $categories = Category::all();
         $skills = Skill::all();
 
-         return view('ManageSkill',compact('majors','categories','skills'));
+        return view('ManageSkill', compact('majors', 'categories', 'skills'));
     }
 
     /**
@@ -37,8 +37,8 @@ class SkillController extends Controller
         $categories = Category::all();
         $skills = Skill::all();
 
-       
-        return view('ManageSkill',compact('majors','categories','skills'));
+
+        return view('ManageSkill', compact('majors', 'categories', 'skills'));
     }
 
 
@@ -51,12 +51,12 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-         $skills              = new Skill();
-         $skills->skill_name  =$request->get('skill_name');
-         $skills->save();
-         $skills->majors()->attach($request->get('major_id'));
-         return redirect('Skill');
-}
+        $skills              = new Skill();
+        $skills->skill_name  = $request->get('skill_name');
+        $skills->save();
+        $skills->majors()->attach($request->get('major_id'));
+        return redirect('Skill');
+    }
 
     /**
      * Display the specified resource.
@@ -66,14 +66,22 @@ class SkillController extends Controller
      */
     public function show($id)
     {
-         $skills = Skill::findOrFail($id);
-         return view('ManageSkill',compact('skills','id'));
+        $skills = Skill::findOrFail($id);
+        return view('ManageSkill', compact('skills', 'id'));
     }
 
     public function show1($id)
     {
         // $post=Skill::find($id)->catposts;
         // return view('Postsskills',compact('post'));
+    }
+
+    public function showSkill($id)
+    {
+        //    $skills = Skill::where('major_id' ,$id)->pluck('skill_name','id');
+        $skills = Major::findOrFail($id)->skills->pluck('skill_name','id');;
+        return response()->json($skills);
+       
     }
     /**
      * Show the form for editing the specified resource.
@@ -83,11 +91,10 @@ class SkillController extends Controller
      */
     public function edit($id)
     {
-        $skills = Skill::where('id','=',$id)->first();
-           return view('editSkill',[
-            'Skills'=>$skills
+        $skills = Skill::where('id', '=', $id)->first();
+        return view('editSkill', [
+            'Skills' => $skills
         ]);
-
     }
 
     /**
@@ -97,13 +104,13 @@ class SkillController extends Controller
      * @param  \App\admins  $admins
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$skills)
+    public function update(Request $request, $skills)
     {
         ////$Skill = Skill::where('Skill_name_id','=',$Skill)->first();
-        Skill::where('id','=' ,$skills)
-        ->update(['skill_name' => $request->get('skill_name')]);
-       return redirect()->route('Skill');
-       ///
+        Skill::where('id', '=', $skills)
+            ->update(['skill_name' => $request->get('skill_name')]);
+        return redirect()->route('Skill');
+        ///
 
     }
 
@@ -113,10 +120,11 @@ class SkillController extends Controller
      * @param  \App\admins  $admins
      * @return \Illuminate\Http\Response
      */
-    public function destroy($skills)   {
-       //$Skill = Skill::where('Skill_name_id','=',$Skill)->first();
+    public function destroy($skills)
+    {
+        //$Skill = Skill::where('Skill_name_id','=',$Skill)->first();
         Skill::where('id', $skills)->delete();
-       // $Skill->delete();
+        // $Skill->delete();
         return redirect('Skill');
     }
 }

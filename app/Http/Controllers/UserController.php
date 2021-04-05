@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use  App\Models\User;
+use  App\Models\Profile;
+
 
 class UserController extends Controller
 {
@@ -20,7 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('Manage_Users');
+        $users = User::all();
+        return view('Manage_Users',[
+            'users' => $users,
+        ]);
     }
 
     public function create()
@@ -33,10 +36,12 @@ class UserController extends Controller
 
     }
 
+    
+
+    
     public function show(){
 
         $users = User::OrderBy('created_at', 'desc')->get();
-
         return view('Manage_Users', compact('users'));
 
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Recruiter;
+use App\Models\Recruiter;
 use App\RecruiterController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
 use Hash;
+use Auth;
 
 class RecruiterRegisterController extends Controller
 {
@@ -18,7 +18,7 @@ class RecruiterRegisterController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('Auth/recruiter-register');
     }
 
     /**
@@ -30,7 +30,7 @@ class RecruiterRegisterController extends Controller
     {
 
         $recruiters = Recruiter::all();
-        return view('Recruiter',[
+        return view('home',[
             'recruiters' => $recruiters,
         ]);
 
@@ -47,13 +47,19 @@ class RecruiterRegisterController extends Controller
     public function store(Request $request)
     {
         $recruiter = new Recruiter();
-        $recruiter->id=$request->get('id');
-        $recruiter->name=$request->get('name');
-        $recruiter->email   =$request->get('email');
-        $recruiter->password   = Hash::make($request->get('password'));
-
+        $recruiter->id       =$request->get('id');
+        $recruiter->name     =$request->get('name');
+        $recruiter->email    =$request->get('email');
+        $recruiter->password = Hash::make($request->get('password'));
         $recruiter->save();
-        return redirect()->route('welcome');
+       
+
+        if (Auth::guard('recruiter')->attempt(['email' => $request->get('email'), 'password' => $request->get('password')])) {
+            return redirect()->route('recruiter.dashboard');
+            
+        }
+
+        return redirect('recruiter/login');
     }
 
 

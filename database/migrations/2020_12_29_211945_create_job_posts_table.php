@@ -15,19 +15,28 @@ class CreateJobPostsTable extends Migration
     {
         Schema::create('job_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('recruiter_id')->nullable();
-            $table->bigInteger('profile_id')->nullable();
-            $table->bigInteger('category_id')->nullable();
+            $table->foreignId('recruiter_id')->nullable();
+            $table->foreignId('category_id')->nullable();
+            $table->foreignId('major_id')->nullable();
             $table->text('job_desc')->nullable();
             $table->string('job_city')->nullable();
-            $table->enum('job_is_active', ['true','false'])->nullable();
             $table->string('job_title')->nullable();
             $table->string('company_name')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->text('company_logo')->nullable();
             $table->timestamps();
+
+            
         });
+        // Schema::table('job_posts', function (Blueprint $table) {
+        //     $table->foreign('major_id')->references('id')->on('majors');    
+        // });
+        // Schema::table('job_posts', function (Blueprint $table) {
+        //     $table->dropColumn('category_id');
+        // });
+        
+
     }
 
     /**

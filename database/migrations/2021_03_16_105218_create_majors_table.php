@@ -15,7 +15,7 @@ class CreateMajorsTable extends Migration
     {
         Schema::create('majors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('category_id')->nullable();
+            $table->foreignId('category_id')->nullable();
             $table->string('major_name')->nullable();
             $table->timestamps();
         });

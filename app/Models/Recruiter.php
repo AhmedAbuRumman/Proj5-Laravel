@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,6 +26,9 @@ class Recruiter extends Authenticatable
      *
      * @var array
      */
+
+    protected $guard = "recruiter" ;
+    
     protected $fillable = [
         'name', 'email', 'password',
     ];

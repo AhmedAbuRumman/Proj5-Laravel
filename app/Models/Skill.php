@@ -14,5 +14,9 @@ class Skill extends Model
         return $this->belongsToMany('App\Models\Major','major_skill');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User','skill_user');
+    }
     
 }

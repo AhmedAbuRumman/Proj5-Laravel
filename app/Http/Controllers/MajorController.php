@@ -63,9 +63,10 @@ class MajorController extends Controller
      * @param  \App\admins  $admins
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function showMajor($id)
     {
-       
+       $majors = Major::where('category_id' ,$id)->pluck('major_name','id');
+       return json_encode($majors);
         
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMajorSkill extends Migration
+class CreateMajorSkillTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class CreateMajorSkill extends Migration
     public function up()
     {
         Schema::create('major_skill', function (Blueprint $table) {
-           $table->bigIncrements('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('skill_id');
             $table->unsignedBigInteger('major_id');
-            $table->foreign('skill_id')->references('id')->on('skill')->onDelete('cascade');
-            $table->foreign('major_id')->references('id')->on('major')->onDelete('cascade');
+            $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
+            $table->foreign('major_id')->references('id')->on('majors')->onDelete('cascade');
             $table->timestamps();
         });
     }

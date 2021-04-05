@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\Category;
+use App\Models\Major;
 use App\Models\JobPost;
 use App\Models\Recruiter;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobPostController extends Controller
 {
@@ -29,7 +31,7 @@ class JobPostController extends Controller
     {
         $all_posts1 = JobPost::all();
 
-        return view ('/home' , compact('all_posts1'));
+        return view ('home' , compact('all_posts1'));
     }
 
 
@@ -37,7 +39,7 @@ class JobPostController extends Controller
     {
         $all_posts1 = JobPost::find($id);
 
-        return view ('/single' , compact('all_posts1'));
+        return view ('single' , compact('all_posts1'));
     }
     /**
      * Show the form for creating a new resource.
@@ -47,20 +49,21 @@ class JobPostController extends Controller
     public function create(Request $request)
     {
 
-        $validatedInputs= $request->validate([
+        // $validatedInputs= $request->validate([
            
 
-            "email"          => "required|email",
-            "job_title"      => "required",
-            "job_desc"       => "required",
-            "category_id"    => "required",
-            "company_name"   => "required",
-            "job_city"       => "required",
-            "company_logo"       => "required",
-            "phone"          => "required",
+        //     "email"          => "required|email",
+        //     "job_title"      => "required",
+        //     "job_desc"       => "required",
+        //     "category_id"    => "required",
+        //     "major_id"       => "required",
+        //     "company_name"   => "required",
+        //     "job_city"       => "required",
+        //     "company_logo"   => "required",
+        //     "phone"          => "required",
             
 
-        ]);
+        // ]);
 
 
     
@@ -77,20 +80,24 @@ class JobPostController extends Controller
      */
     public function store(Request $request)
     {
+
+        // return $request;
         $file_extension = $request->company_logo->getClientOriginalExtension();
         $file_name=time().".".$file_extension;
         $path = 'uploads/logo';
         $request->company_logo->move($path ,$file_name);
 
                 JobPost::create([
-                "email"           =>request('email'),
-                "job_title"       =>request('job_title'),
-                "job_desc"        =>request('job_desc'),
-                "category_id"     =>request('category_id'),
-                "company_name"    =>request('company_name'),
-                "job_city"        =>request('job_city'),
-                "company_logo"    =>$file_name,
-                "phone"           =>request('phone'),
+                "email"            =>request('email'),
+                "job_title"        =>request('job_title'),
+                "job_desc"         =>request('job_desc'),
+                "category_id"      =>request('category_id'),
+                "recruiter_id"     =>Auth::guard('recruiter')->user()->id,
+                "major_id"         =>request('major_id'),
+                "company_name"     =>request('company_name'),
+                "job_city"         =>request('job_city'),
+                "company_logo"     =>$file_name,
+                "phone"            =>request('phone'),
         ]);
 
 
@@ -115,7 +122,7 @@ class JobPostController extends Controller
         return view('recruiter.single',compact('user'));
     }
 
-    public function show2(JobPost $id)
+    public function show2($id)
     {
         $view=Recruiter::find($id);
          return view('recruiter.recruiter_profile',compact('view'));
@@ -158,6 +165,7 @@ class JobPostController extends Controller
 
 
 
+
         ]);
 
         return redirect('view_post');
@@ -187,7 +195,7 @@ class JobPostController extends Controller
     public function create11()
     {
       return view('recruiter.job_post',[
-          'categories' => Category::all(),
+          'categories' => Category::all(),'majors' => Major::all()
       ]);
     }
 

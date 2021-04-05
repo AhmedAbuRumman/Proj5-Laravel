@@ -56,7 +56,7 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                             <th>id</th>
-                                            <th>Category Name</th>
+                                           
                                             <th>Major name</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -65,7 +65,7 @@
                                             <tr>
                                                 @foreach($majors as $major)
                                                 <td>{{$major->id}}</td>
-                                                <td>{{$major->category->job_cat}}</td>
+                                              
                                                 <td>{{$major->major_name}}</td>
                                                 <td><a href="/Major/{{$major->id}}/edit" class='btn btn-primary'>Edit</a></td>
                                                 <form method="post" action="{{route('Major.destroy',$major->id)}}">

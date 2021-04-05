@@ -40,10 +40,27 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'recruiter' => [
+            'driver' => 'session',
+            'provider' => 'recruiters',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
+            'hash' => false,
+        ],
+        'admin_api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+            'hash' => false,
+        ],
+        'recruiter_api' => [
+            'driver' => 'token',
+            'provider' => 'recruiters',
             'hash' => false,
         ],
     ],
@@ -70,6 +87,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'recruiters' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Recruiter::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -95,6 +120,18 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 15,
+            'throttle' => 60,
+        ],
+        'recruiters' => [
+            'provider' => 'recruiters',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

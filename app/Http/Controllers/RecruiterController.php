@@ -17,6 +17,7 @@ class RecruiterController extends Controller
      *
      * @return void
      */
+    protected $redirectTo = '/home';
 
 
     /**
@@ -26,7 +27,9 @@ class RecruiterController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $all_posts1 = JobPost::all();
+
+        return view ('home' , compact('all_posts1'));
     }
 
 
